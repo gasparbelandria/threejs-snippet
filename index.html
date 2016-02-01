@@ -10,6 +10,7 @@
         canvas { width: 100%; height: 100% }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r73/three.min.js"></script>
+    <script src="http://threejs.org/examples/js/controls/OrbitControls.js"></script>
 </head>
 
 <body>
@@ -27,6 +28,7 @@
         var points = points || {};
         var vertices = vertices || [];
         var line = line || {};
+        var controls = controls || {};
         var App = function (){
             return {
                 initialize: function(){
@@ -35,6 +37,7 @@
                     app.setCamera();
                     app.addScene(camera);
                     app.setGeometry();
+                    app.controls();
                 },
                 setRenderer: function (){
                     renderer = new THREE.WebGLRenderer();
@@ -60,7 +63,7 @@
                     renderer.render(obj.scene, obj.camera);
                 },
                 drawFigure: function(x,y,z){
-                    vertices = [[2,7,0],[7,2,0],[12,7,0],[12,17,0],[7,12,0],[2,17,0],[2,7,0]];
+                    vertices = [[2,7,0],[7,2,0],[12,7,0],[12,17,0],[7,12,0],[2,17,0],[2,7,0],[2,7,2],[7,2,2],[12,7,2],[12,17,2],[7,12,2],[2,17,2],[2,7,2]];
                     var long_vertices = vertices.length;
                     var i = 0;
                     var x, y, z;
@@ -81,15 +84,20 @@
                     app.renderModel();
                 },
                 renderModel: function(){
+                    controls.update();
                     line.rotation.y = line.rotation.y + 0.01;
+                    console.log('renderModel');
                     app.render({scene:scene, camera:camera});
+                },
+                controls: function(){
+                    controls = new THREE.OrbitControls(camera, renderer.domElement);
                 }
             }
         }
         app = new App();
         app.initialize();
         app.drawFigure();
-        app.animation();
+        //app.animation();
     </script>
 </body>
 </html>
