@@ -1,0 +1,21 @@
+{
+  "name": "threejs-snippet",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gasparbelandria/threejs-snippet.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gasparbelandria/threejs-snippet/issues"
+  },
+  "homepage": "https://github.com/gasparbelandria/threejs-snippet#readme",
+  "devDependencies": {
+    "browserify": "latest"
+  }
+}
