@@ -26,6 +26,7 @@
         var pointsMaterial = pointsMaterial || {};
         var points = points || {};
         var vertices = vertices || [];
+        var line = line || {};
         var App = function (){
             return {
                 initialize: function(){
@@ -62,7 +63,7 @@
                     vertices = [[2,7,0],[7,2,0],[12,7,0],[12,17,0],[7,12,0],[2,17,0],[2,7,0]];
                     var long_vertices = vertices.length;
                     var i = 0;
-                    var x, y, z, line;
+                    var x, y, z;
                     for (; i < long_vertices; i++){
                         x = vertices[i][0];
                         y = vertices[i][1];
@@ -74,12 +75,21 @@
                     line = new THREE.Line(geometry, pointsMaterial);
                     app.addScene(line);
                     app.render({scene:scene, camera:camera});
+                },
+                animation: function(){
+                    requestAnimationFrame( app.animation );
+                    app.renderModel();
+                },
+                renderModel: function(){
+                    line.rotation.y = line.rotation.y + 0.01;
+                    app.render({scene:scene, camera:camera});
                 }
             }
         }
         app = new App();
         app.initialize();
         app.drawFigure();
+        app.animation();
     </script>
 </body>
 </html>
