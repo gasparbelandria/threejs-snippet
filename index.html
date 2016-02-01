@@ -29,6 +29,10 @@
         var vertices = vertices || [];
         var line = line || {};
         var controls = controls || {};
+        var PlaneGeometry = PlaneGeometry || {};
+        var planeMaterial = planeMaterial || {};
+        var texture = texture || '';
+        var territory = territory || {};
         var App = function (){
             return {
                 initialize: function(){
@@ -37,7 +41,8 @@
                     app.setCamera();
                     app.addScene(camera);
                     app.setGeometry();
-                    app.controls();
+                    app.setControls();
+                    app.setPlane();
                 },
                 setRenderer: function (){
                     renderer = new THREE.WebGLRenderer();
@@ -49,8 +54,8 @@
                 },
                 setCamera: function(){
                     //field of view, radio, near and far clipping plane
-                    //camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
-                    camera = new THREE.PerspectiveCamera();
+                    camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 10000 );
+                    //camera = new THREE.PerspectiveCamera();
                     camera.position.z = 100;
                 },
                 setGeometry: function(){
@@ -61,6 +66,33 @@
                 },
                 render: function(obj){
                     renderer.render(obj.scene, obj.camera);
+                },
+                setControls: function(){
+                    controls = new THREE.OrbitControls(camera, renderer.domElement);
+                },
+                setPlane: function(){
+                    // plane geometry
+                    PlaneGeometry = new THREE.PlaneGeometry(1000,1000,10,10);
+                    // texture
+                    texture = new THREE.ImageUtils.loadTexture('img/texture.jpg');
+                    texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+                    texture.repeat.set(10,10);
+                    // material
+                    planeMaterial = new THREE.MeshBasicMaterial({map:texture, side:THREE.DoubleSide});
+                    // creating plane
+                    territory = new THREE.Mesh(PlaneGeometry, planeMaterial);
+//                    territory.rotation.y=-0.5
+//                    territory.rotation.x=Math.PI/2;
+                    app.addScene(territory);
+                },
+                animation: function(){
+                    requestAnimationFrame( app.animation );
+                    app.renderModel();
+                },
+                renderModel: function(){
+                    controls.update();
+                    line.rotation.y = line.rotation.y + 0.01;
+                    app.render({scene:scene, camera:camera});
                 },
                 drawFigure: function(x,y,z){
                     vertices = [[2,7,0],[7,2,0],[12,7,0],[12,17,0],[7,12,0],[2,17,0],[2,7,0],[2,7,2],[7,2,2],[12,7,2],[12,17,2],[7,12,2],[2,17,2],[2,7,2]];
@@ -78,26 +110,14 @@
                     line = new THREE.Line(geometry, pointsMaterial);
                     app.addScene(line);
                     app.render({scene:scene, camera:camera});
-                },
-                animation: function(){
-                    requestAnimationFrame( app.animation );
-                    app.renderModel();
-                },
-                renderModel: function(){
-                    controls.update();
-                    line.rotation.y = line.rotation.y + 0.01;
-                    console.log('renderModel');
-                    app.render({scene:scene, camera:camera});
-                },
-                controls: function(){
-                    controls = new THREE.OrbitControls(camera, renderer.domElement);
                 }
             }
         }
         app = new App();
         app.initialize();
+
         app.drawFigure();
-        //app.animation();
+        app.animation();
     </script>
 </body>
 </html>
