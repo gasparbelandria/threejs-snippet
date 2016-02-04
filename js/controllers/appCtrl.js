@@ -53,6 +53,15 @@ app.controller('AppCtrl', ['$window', '$location', '$scope', 'global', function(
         var _clock = _clock || {};
         var _delta = _delta || {};
         var pointLight = pointLight || {};
+        var projector = new THREE.Projector(); // de
+        var raycaster = new THREE.Raycaster();
+        var mouseVector = new THREE.Vector3();
+
+        var mouse = new THREE.Vector3();
+        
+        var objects = [];
+
+        var domEvents = {};
 
         var App = function (){
             return {
@@ -66,10 +75,16 @@ app.controller('AppCtrl', ['$window', '$location', '$scope', 'global', function(
                     app.setControls();
                     app.addPointLight();
                     app.addArrowHelper();
+                    app.listeningMouse();
+                },
+
+                listeningMouse: function(){
+
                 },
 
                 setRenderer: function (){
                     renderer = new THREE.WebGLRenderer();
+                    //renderer = new THREE.CanvasRenderer();
                     renderer.setSize( window.innerWidth, window.innerHeight );
                     renderer.shadowMapEnabled = true;
                     $('#render').append( renderer.domElement );
@@ -103,6 +118,7 @@ app.controller('AppCtrl', ['$window', '$location', '$scope', 'global', function(
 
                 setControls: function(){
                     controls = new THREE.OrbitControls(camera, renderer.domElement);
+                    domEvents = new THREEx.DomEvents(camera, renderer.domElement)
 
                     // FirstPersonControls
                     //controls = new THREE.FirstPersonControls( camera );
@@ -244,8 +260,10 @@ app.controller('AppCtrl', ['$window', '$location', '$scope', 'global', function(
                     extrudeMesh.position.x = global.primitives.figure.position.x;
                     extrudeMesh.position.y = global.primitives.figure.position.y;
                     extrudeMesh.position.z = global.primitives.figure.position.z;
+                    extrudeMesh.name = 'extrudeMesh';
                     app.addScene(extrudeMesh);
                     app.animation();
+                    objects.push(extrudeMesh);
                 },
 
                 addCylinder: function(){
@@ -270,9 +288,12 @@ app.controller('AppCtrl', ['$window', '$location', '$scope', 'global', function(
                     cylinderMesh.position.x = global.primitives.cylinder.position.x;
                     cylinderMesh.position.y = global.primitives.cylinder.position.y;
                     cylinderMesh.position.z = global.primitives.cylinder.position.z;
+                    cylinderMesh.name = 'cylinderMesh';
+                    cylinderMesh.callback = function() { console.log( this.name ); }
                     // render
                     app.addScene(cylinderMesh);
                     app.animation();
+                    objects.push(cylinderMesh);
                 },
 
                 addCube: function(){
@@ -296,9 +317,11 @@ app.controller('AppCtrl', ['$window', '$location', '$scope', 'global', function(
                     cubeMesh.position.x = global.primitives.cube.position.x;
                     cubeMesh.position.y = global.primitives.cube.position.y;
                     cubeMesh.position.z = global.primitives.cube.position.z;
+                    cubeMesh.name = 'cubeMesh';
                     // render
                     app.addScene(cubeMesh);
                     app.animation();
+                    objects.push(cubeMesh);
                 },
 
                 addSphere: function(){
@@ -315,9 +338,11 @@ app.controller('AppCtrl', ['$window', '$location', '$scope', 'global', function(
                     sphereMesh.position.x = global.primitives.sphere.position.x;
                     sphereMesh.position.y = global.primitives.sphere.position.y;
                     sphereMesh.position.z = global.primitives.sphere.position.z;
+                    sphereMesh.name = 'sphereMesh';
                     // render
                     app.addScene(sphereMesh);
                     app.animation();
+                    objects.push(sphereMesh);
                 },
 
                 addCircle: function(){
@@ -338,8 +363,10 @@ app.controller('AppCtrl', ['$window', '$location', '$scope', 'global', function(
                     circleMesh.position.x = global.primitives.circle.position.x;
                     circleMesh.position.y = global.primitives.circle.position.y;
                     circleMesh.position.z = global.primitives.circle.position.z;
+                    circleMesh.name = 'circleMesh';
                     app.addScene(circleMesh);
                     app.animation();
+                    objects.push(circleMesh);
                 },
 
                 addTorus: function(){
@@ -362,8 +389,10 @@ app.controller('AppCtrl', ['$window', '$location', '$scope', 'global', function(
                     torusMesh.position.x = global.primitives.torus.position.x;
                     torusMesh.position.y = global.primitives.torus.position.y;
                     torusMesh.position.z = global.primitives.torus.position.z;
+                    torusMesh.name = 'torusMesh';
                     app.addScene(torusMesh);
                     app.animation();
+                    objects.push(torusMesh);
 
                 },
 
@@ -389,17 +418,21 @@ app.controller('AppCtrl', ['$window', '$location', '$scope', 'global', function(
                     torusKnotMesh.position.x = global.primitives.torusknot.position.x;
                     torusKnotMesh.position.y = global.primitives.torusknot.position.y;
                     torusKnotMesh.position.z = global.primitives.torusknot.position.z;
+                    torusKnotMesh.name = 'torusKnotMesh';
+
+                    torusKnotMesh.addEventListener('click', function(){
+                        torusKnotMesh.scale.x *= 2;
+                    });
+
                     app.addScene(torusKnotMesh);
                     app.animation();
+                    objects.push(torusKnotMesh);
                 }
-
             }
         };
 
         app = new App();
-        console.time('init');
         app.initialize();
-        console.timeEnd('init');
         app.addTorusKnot();
         app.addPlane();
 
@@ -435,9 +468,35 @@ app.controller('AppCtrl', ['$window', '$location', '$scope', 'global', function(
             app.addTorusKnot();
         });
 
-        torusKnotMesh.addEventListener('click', function(){
-            console.log('clicked torusKnotMesh');
-        })
+        $('#render').mousedown(function(event){
+            event.preventDefault();
+
+            domEvents.addEventListener(torusKnotMesh, 'click', function(event){
+                torusKnotMesh.scale.x *= 2;
+            }, false)
+
+            // intersects
+            /*
+            if (objects.length>0){
+                mouse.x = ( event.clientX / renderer.domElement.clientWidth ) * 2 - 1;
+                mouse.y = - ( event.clientY / renderer.domElement.clientHeight ) * 2 + 1;
+                var vector = new THREE.Vector3();
+                var raycaster = new THREE.Raycaster();
+                var dir = new THREE.Vector3();
+                vector.set( ( event.clientX / window.innerWidth ) * 2 - 1, - ( event.clientY / window.innerHeight ) * 2 + 1, 0.5 ); // z = 0.5 important!
+                vector.unproject( camera );
+                raycaster.set( camera.position, vector.sub( camera.position ).normalize() );
+                var intersects = raycaster.intersectObjects( objects );
+                if ( intersects.length > 0 ) {
+                    console.log(intersects);
+                    intersects[ 0 ].object.material.color.setHex( Math.random() * 0xffffff );
+                    //intersects[ 0 ].object.callback();
+                    console.log(intersects[ 0 ].object.name);
+                }
+            }
+            */
+
+        });
 
     }else{
         console.error('canvas not supported');
