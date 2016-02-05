@@ -10,7 +10,7 @@ Topics learned:
 * Change properties at objects.
 * Scale, rotation and translation.
 
-Next, I want learn how:
+Next, I want to learn how:
 
 * Change shapes.
 * Camera effects.
