@@ -58,7 +58,7 @@ app.controller('AppCtrl', ['$window', '$location', '$scope', 'global', function(
         var mouseVector = new THREE.Vector3();
 
         var mouse = new THREE.Vector3();
-        
+
         var objects = [];
 
         var domEvents = {};
@@ -75,11 +75,6 @@ app.controller('AppCtrl', ['$window', '$location', '$scope', 'global', function(
                     app.setControls();
                     app.addPointLight();
                     app.addArrowHelper();
-                    app.listeningMouse();
-                },
-
-                listeningMouse: function(){
-
                 },
 
                 setRenderer: function (){
@@ -475,8 +470,8 @@ app.controller('AppCtrl', ['$window', '$location', '$scope', 'global', function(
                 torusKnotMesh.scale.x *= 2;
             }, false)
 
-            // intersects
             /*
+            // intersects
             if (objects.length>0){
                 mouse.x = ( event.clientX / renderer.domElement.clientWidth ) * 2 - 1;
                 mouse.y = - ( event.clientY / renderer.domElement.clientHeight ) * 2 + 1;
