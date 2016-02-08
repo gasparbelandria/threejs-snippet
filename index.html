@@ -6,35 +6,12 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Three.js</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
-    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
-    <!--Threejs-->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r73/three.min.js"></script>
-    <script type="text/javascript" src="http://threejs.org/examples/js/controls/OrbitControls.js"></script>
-    <script type="text/javascript" src="js/threex.windowsresize.js"></script>
-    <script type="text/javascript" src="js/threex.keyboardstate.js"></script>
-    <script type="text/javascript" src="js/firstpersoncontrols.js"></script>
-    <script type="text/javascript" src="js/threex.domevents.js"></script>
-    <script type="text/javascript" src="http://threejs.org/examples/js/renderers/Projector.js"></script>
-
-
-    <!-- Angular Material requires Angular.js Libraries -->
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+    <!--Cannonjs-->
+    <!--<script src="js/cannon.rigid.js"></script>-->
 
     <!-- Angular Material Library -->
     <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
-    <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
-
-    <!--modernizr-->
-    <script src="js/modernizr-custom.js"></script>
-
-    <!--app-->
-    <script src="js/services/variables.js"></script>
-    <script src="js/controllers/appCtrl.js"></script>
 
     <style>
         body { margin: 0; background-color: black; overflow: hidden}
@@ -42,34 +19,18 @@
     </style>
 
 </head>
+<!--ng-app="threejsApp" ng-cloak-->
+<body >
 
-<body ng-app="threeApp" ng-cloak>
+    <script src="libs/requirejs/require.js" data-main="js/main.js"></script>
 
-    <div ng-controller="AppCtrl">
-        <div class="container-fluid">
-            <nav class="navbar navbar-inverse">
-                <div class="container">
-                    <div class="navbar-header">
-                        <a class="navbar-brand" href="#">THREEJS</a>
-                    </div>
-                    <div class="collapse navbar-collapse" id="navbar-collapse-3">
-                        <ul class="nav navbar-nav navbar-right">
-                            <li><a href="#" id="plane">Plane</a></li>
-                            <li><a href="#" id="figure">Figure</a></li>
-                            <li><a href="#" id="cylinder">Cylinder</a></li>
-                            <li><a href="#" id="circle">Circle</a></li>
-                            <li><a href="#" id="cube">Cube</a></li>
-                            <li><a href="#" id="sphere">Sphere</a></li>
-                            <li><a href="#" id="torus">Torus</a></li>
-                            <li><a href="#" id="torusknot">TorusKnot</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </div>
-
-        <div id="render"></div>
-    </div>
+    <header>
+        <div ui-view="header"/>
+    </header>
+    <div id="content" ui-view="content"/>
+    <footer>
+        <div ui-view="footer"/>
+    </footer>
 
 </body>
 </html>
