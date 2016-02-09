@@ -52,7 +52,7 @@ define('appconfig', [
 								controller: 'headerController'
 							},
 							'content@': {
-								templateUrl: 'tpl/content_cannon.tpl.html',
+								templateUrl: 'tpl/content_quaternion.tpl.html',
 								controller: 'quaternionController'
 							},
 							'footer@': {
