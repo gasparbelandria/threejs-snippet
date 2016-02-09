@@ -1,16 +1,15 @@
-# threejs practices
+# threejs snippets
 
-Just one week learning three js.
-
-Topics learned:
+Topics:
 
 * To create renderer, scene, camera, geometry, controls, and texture.
 * Helpers.
 * Add events to objects like 'click', 'mousedown'
 * Change properties at objects.
 * Scale, rotation and translation.
+* Rotation from axis using quaternion.
 
-Next, I want to learn how:
+Next:
 
 * Change shapes.
 * Camera effects.
@@ -19,6 +18,5 @@ Next, I want to learn how:
 * To detect collisions.
 * Management some scenes same time.
 
-I'll update this README according topics learned.
 
 ![threejs basic](https://github.com/gasparbelandria/threejs-snippet/blob/master/img/threejs-basic.png?raw=true)
