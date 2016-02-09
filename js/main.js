@@ -26,6 +26,7 @@ require.config({
         'appctrl': 'js/controllers/appCtrl',
         'headerctrl': 'js/controllers/headerCtrl',
         'cannonctrl': 'js/controllers/cannonCtrl',
+        'quaternionctrl': 'js/controllers/quaternionCtrl',
 
         // Application
         'app': 'js/app',

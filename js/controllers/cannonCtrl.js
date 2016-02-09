@@ -70,7 +70,6 @@ define('cannonctrl', ['app', 'cannon', 'modernizr'], function (app, cannon, mode
                     scene.remove( scenes[i] );
                 }
             });
-
         }else{
             console.error( 'canvas not supported' );
         }
