@@ -27,34 +27,22 @@ define('quaternionctrl', ['app', 'modernizr'], function (app, modernizr) {
                 return {
                     init: function () {
                         airplane = new THREE.Object3D();
-
                         airplane.useQuaternion = true; // CHANGED
-
                         // renderer
                         renderer = new THREE.WebGLRenderer( { clearColor: 0x000000, clearAlpha: 1 } );
                         renderer.setSize( window.innerWidth, window.innerHeight );
                         $('#render_quaternion').append( renderer.domElement );
-
                         // scene
                         scene = new THREE.Scene();
-
                         //camera
                         camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 10000 );
                         camera.position.z = 400;
-
-
                         axes = new THREE.AxisHelper();
-
-                        airplane.add( axes );  // CHANGED
-
-
-                        //using a cube to represent my airplane for jsfiddle purposes
-                        //in my code i'm loading in a collada model
+                        airplane.add( axes );
                         cubeMaterial = new THREE.MeshPhongMaterial( { ambient: 0xffabe4, color: 0xace3ff, specular: 0xffabe4, shininess: 0, perPixel: true, metal: true } );
                         cube = new THREE.Mesh( new THREE.CubeGeometry( 50, 50, 50 ), new THREE.MeshNormalMaterial() );
-                        airplane.add(cube)
-
-                        scene.add(airplane)
+                        airplane.add(cube);
+                        scene.add(airplane);
                     },
                     animate: function () {
                         requestAnimationFrame( app.animate );
@@ -76,7 +64,6 @@ define('quaternionctrl', ['app', 'modernizr'], function (app, modernizr) {
                         renderer.render( scene, camera );
                     },
                     rotateOnAxis: function( object, axis, angle ){
-                        console.log(object.quaternion);
                         _q1.setFromAxisAngle( axis, angle );
                         //object.quaternion.multiplySelf( _q1 );
                         object.quaternion.multiplyQuaternions( _q1, object.quaternion );

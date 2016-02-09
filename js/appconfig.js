@@ -1,6 +1,7 @@
 define('appconfig', [
     'app',
-	'appctrl',
+	'mainctrl',
+	'basicsctrl',
 	'headerctrl',
 	'cannonctrl',
 	'quaternionctrl',
@@ -20,14 +21,30 @@ define('appconfig', [
 								controller: 'headerController'
 							},
 							'content': {
-								templateUrl: 'tpl/content_basics.tpl.html',
-								controller: 'appController'
+								templateUrl: 'tpl/content_main.tpl.html',
+								controller: 'mainController'
 							},
 							'footer': {
 								templateUrl: 'tpl/footer.tpl.html'
 							}
 						}
-                	}).state('app.cannon', {
+                	}).state('app.basics', {
+						url: 'basics',
+						cache: false,
+						views: {
+							'header@': {
+								templateUrl: 'tpl/header.tpl.html',
+								controller: 'headerController'
+							},
+							'content@': {
+								templateUrl: 'tpl/content_basics.tpl.html',
+								controller: 'basicsController'
+							},
+							'footer@': {
+								templateUrl: 'tpl/footer.tpl.html'
+							}
+						}
+					}).state('app.cannon', {
 						url: 'cannon',
 						cache: false,
 						views: {

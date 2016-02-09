@@ -3,24 +3,20 @@ define('headerctrl', ['app'], function (app) {
     'use strict';
 
     app.controller('headerController', ['$window', '$location', '$scope', '$state', function($window, $location, $scope, $state){
+        console.clear();
 
-        $scope.options = ['cannon', 'quaternion', 'basics'];
+        //console.log($location);
+        //console.log($location.$$absUrl);
+        //var t = $location.$$absUrl.replace($location.$$url, '/');
+        //console.warn(t);
 
-        $scope.gotooption = function(option){
-            switch (option) {
-                case 'basics':
-                    $state.go('app', {}, {reload: true});
-                    break;
-                case 'cannon':
-                    $state.go('app.cannon', {}, {reload: true});
-                    break;
-                case 'quaternion':
-                    $state.go('app.quaternion', {}, {reload: true});
-                    break;
-            }
+        $scope.options = [
+            {name:'cannon', link: $location.$$absUrl.replace($location.$$url, '/') + 'cannon'},
+            {name:'quaternion', link: $location.$$absUrl.replace($location.$$url, '/') + 'quaternion'},
+            {name:'basics', link: $location.$$absUrl.replace($location.$$url, '/') + 'basics'}
+            ];
 
-        }
-
+        console.log($scope.options);
     }]);
 
 });

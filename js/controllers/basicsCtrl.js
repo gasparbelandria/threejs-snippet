@@ -1,8 +1,8 @@
-define('appctrl', ['app', 'variables', 'modernizr', 'threejs', 'threexResize', 'threexKeyboard', 'threexFirstpersoncontrol', 'orbitControls', 'domEvents'], function (app, variables, modernizr, threejs, threexResize, threexKeyboard, threexFirstpersoncontrol, orbitControls, domEvents) {
+define('basicsctrl', ['app', 'variables', 'modernizr', 'threejs', 'threexResize', 'threexKeyboard', 'threexFirstpersoncontrol', 'orbitControls', 'domEvents'], function (app, variables, modernizr, threejs, threexResize, threexKeyboard, threexFirstpersoncontrol, orbitControls, domEvents) {
 
     'use strict';
 
-    app.controller('appController', ['$window', '$location', '$scope', 'variables', '$rootScope', function($window, $location, $scope, variables, $rootScope){
+    app.controller('basicsController', ['$window', '$location', '$scope', 'variables', '$rootScope', function($window, $location, $scope, variables, $rootScope){
 
         if (Modernizr.canvas){
             var app = app || {};

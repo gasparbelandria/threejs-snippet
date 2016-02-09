@@ -23,8 +23,9 @@ require.config({
         'modernizr': 'js/modernizr-custom',
 
         // Controller
-        'appctrl': 'js/controllers/appCtrl',
+        'basicsctrl': 'js/controllers/basicsCtrl',
         'headerctrl': 'js/controllers/headerCtrl',
+        'mainctrl': 'js/controllers/mainCtrl',
         'cannonctrl': 'js/controllers/cannonCtrl',
         'quaternionctrl': 'js/controllers/quaternionCtrl',
 
