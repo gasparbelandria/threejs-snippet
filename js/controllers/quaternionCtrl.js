@@ -104,11 +104,9 @@ define('quaternionctrl', ['app', 'modernizr'], function (app, modernizr) {
             app.animate();
 
             $scope.$on('$destroy', function() {
-                var len = scenes.length, i = 0;
-                for (; i < len; i++){
-                    scene.remove( scenes[i] );
-                }
+                App();
             });
+            
         }else{
             console.error( 'canvas not supported' );
         }

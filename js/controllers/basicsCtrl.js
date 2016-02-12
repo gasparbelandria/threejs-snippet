@@ -449,21 +449,9 @@ define('basicsctrl', ['app', 'variables', 'modernizr', 'threejs', 'threexResize'
             });
 
             $scope.$on('$destroy', function() {
-                var len = scenes.length, i = 0;
-                for (; i < len; i++){
-                    scene.remove( scenes[i] );
-                }
-
-                //geometry.dispose();
-                //material.dispose();
-                //texture.dispose();
-
+                App();
             });
 
-
-            //$rootScope.$on('$stateChangeStart',
-            //    function(event, toState, toParams, fromState, fromParams){
-            //    })
 
         }else{
             console.error('canvas not supported');
